@@ -1,0 +1,167 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/*=====================================================================================
+    VARIABLES
+=======================================================================================*/
+
+:root {
+    --bs-primary-color: #258cfb;
+    --bs-secondary-color: #6c757d;
+    --bs-success-color: #198754;
+    --bs-info-color: #0dcaf0;
+    --bs-warning-color: #ffc107;
+    --bs-danger-color: #dc3545;
+    --bs-light-color: #f8f9fa;
+    --bs-dark-color: #212529;
+    --bs-text-color: #333333;
+    --bs-white-color: #ffffff;
+}
+
+.about-header {
+    background-color: var(--bs-secondary-color);
+    color: var(--bs-white-color);
+    text-align: center;
+    padding: 40px;
+}
+
+.about-container {
+    display: flex;
+    gap: 25px;
+    padding: 40px;
+}
+
+.about-content {
+    flex: 3;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.about-content :hover {
+    transform: translateY(-5px);
+}
+
+.about-info {
+    flex: 1;
+    background: #eef5ff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.team-section {
+    padding:20px 40px;
+}
+
+.team-section img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.team-section figcaption {
+    text-align: center;
+    margin-top: 10px;
+    color: gray;
+    font-style: italic;
+
+}
+
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+    }
+}
+
+.virtual-library-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.grid-featured {
+    grid-column: span 7;
+    background: #fff;
+    padding: 1rem;
+    border-radius: .5rem;
+    box-shadow: 0 0 0.5rem rgba(0,0,0,0.04);
+}
+
+.grid-list {
+    grid-column: span 5;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.grid-card {
+    background: #fff;
+    padding: .75rem;
+    border-radius: .5rem;
+    box-shadow: 0 0 0.4rem rgba(0,0,0,0.03);
+}
+
+@media (max-width: 768px) {
+    .virtual-library-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-featured, .grid-list {
+        grid-column: auto;
+    }
+
+    .grid-list {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+    }
+}
+
+/* Estilos para componentes reutilizables */
+.reusable-section .info-card,
+.reusable-section .feature-card {
+    background: #fff;
+    border-radius: .5rem;
+    padding: 1rem;
+    box-shadow: 0 0 .5rem rgba(0,0,0,0.04);
+}
+
+.reusable-section .icon-placeholder {
+    font-size: 1.4rem;
+}
+
+@media (max-width:768px) {
+    .reusable-section .feature-card ul {
+        padding-left: 1rem;
+    }
+}

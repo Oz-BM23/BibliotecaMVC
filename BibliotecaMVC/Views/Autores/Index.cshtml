@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BibliotecaMVC.Models.Autor>
+
+<h2>Catálogo de autores</h2>
+<p>Hay @Model.Count() autores registrados</p>
+<hr />
+
+<a asp-action="Create" class="btn btn-primary">Crear nuevo autor</a>
+<hr />
+
+<div class="row">
+    @foreach (var autor in Model)
+    {
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5>@autor.Nombre</h5>
+                    <h6>@autor.Nacionalidad</h6>
+                    <p>Edad: @(DateTime.Now.Year - autor.FechaNacimiento.Year)</p>
+                    <a asp-action="Details" asp-route-id="@autor.Id" class="btn btn-sm btn-info">Ver detalles</a>
+                    <a asp-action="Edit" asp-route-id="@autor.Id" class="btn btn-sm btn-secondary">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@autor.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    }

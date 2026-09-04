@@ -1,0 +1,54 @@
+﻿<header class="about-header">
+    <h1>Biblioteca MVC</h1>
+    <p>Sistema web para la administración y consulta de información de la biblioteca</p>
+</header>
+
+<section class="about-container">
+    <article class="about-content">
+        <h2>¿Quienes somos? </h2>
+        <p>Nosotros somos un equipo de desarrolladores apasionados por crear soluciones tecnológicas innovadoras.</p>
+        <p>
+            El objetivo principal de esta aplicación es facilitar la administración de la biblioteca
+            y mejorar la experiencia del usuario al interactuar con la información disponible.
+        </p>
+    </article>
+    
+    <aside class="about-info">
+        <h3>
+            Misión:
+        </h3>
+        <p>
+            Nuestra misión es proporcionar una plataforma eficiente y confiable para la gestión de la biblioteca,
+            permitiendo a los usuarios acceder a información actualizada sobre libros, autores y préstamos de manera rápida y sencilla.
+        </p>
+        <h3>
+            Visión:
+        </h3>
+        <p>
+            Nuestra visión es convertirnos en la principal plataforma de gestión de bibliotecas,
+            reconocida por su innovación y compromiso con la excelencia en la experiencia del usuario.
+        </p>
+    </aside>
+</section>
+
+<section class="team-section">
+    <figure>
+        <img src="https://picsum.photos/id/24/900/350" alt="Imagen de la biblioteca" />
+        <figcaption>Biblioteca virtual desarrollada con ASP.NET Core</figcaption>
+    </figure>
+</section>
+
+<section class="container reusable-section my-4">
+    <h2 class="h4 mb-3">¿Quieres saber mas?</h2>
+    <div class="row g-3">
+        <div class="col-md-4">
+            @await Html.PartialAsync("_InfoCard", new { Title = "Servicios en línea", Description = "Préstamo digital, reservas y consultas bibliográficas.", Link = "/Home/Préstamos", LinkText = "Ver servicios" })
+        </div>
+        <div class="col-md-4">
+            @await Html.PartialAsync("_FeatureCard", new { Title = "Autores destacados", Subtitle = "Biografías y obras más leídas", Items = new[] { "Gabriel García Márquez", "Miguel de Cervantes", "Antoine de Saint-Exupéry" }, Link = "/Autores", LinkText = "Ver autores", Icon = "bi bi-people" })
+        </div>
+        <div class="col-md-4">
+            @await Html.PartialAsync("_FeatureCard", new { Title = "Categorías populares", Subtitle = "Géneros más consultados", Items = new[] { "Ficción", "Infantil", "Historia" }, Link = "/Home/Categorias", LinkText = "Explorar", Icon = "bi bi-list" })
+        </div>
+    </div>
+</section>

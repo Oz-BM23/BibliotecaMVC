@@ -1,0 +1,32 @@
+@model dynamic
+<div class="feature-card">
+    <div class="d-flex align-items-start gap-2">
+        @if(!string.IsNullOrEmpty((string?)Model?.Icon))
+        {
+            <div class="icon-placeholder me-2" aria-hidden="true"><i class="@(Model?.Icon ?? "")"></i></div>
+        }
+        <div>
+            <h5 class="mb-1">@Model?.Title</h5>
+            @if(Model?.Subtitle != null)
+            {
+                <p class="small text-muted mb-2">@Model?.Subtitle</p>
+            }
+            @{
+                var items = Model?.Items as System.Collections.IEnumerable;
+            }
+            @if(items != null)
+            {
+                <ul class="mb-2">
+                    @foreach(var it in items)
+                    {
+                        <li class="small">@it</li>
+                    }
+                </ul>
+            }
+            @if(Model?.Link != null)
+            {
+                <a class="btn btn-sm btn-outline-secondary" href="@(Model?.Link)">@((Model?.LinkText) ?? "Más")</a>
+            }
+        </div>
+    </div>
+</div>

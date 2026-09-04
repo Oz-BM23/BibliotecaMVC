@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BibliotecaMVC.Models.Libro>
+
+<h2>Catálogo de libros</h2>
+<p>Hay @Model.Count() libros registrados</p>
+<hr />
+
+<a asp-action="Create" class="btn btn-primary">Crear nuevo libro</a>
+<hr />
+
+<div class="row">
+    @foreach (var libro in Model)
+    {
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>@libro.Titulo</h5>
+                    <h6>@libro.Autor</h6>
+                    <p>Categoría: @libro.Categoria</p>
+                    <p>Precio: @libro.Precio.ToString("C")</p>
+                    <a asp-action="Details" asp-route-id="@libro.Id" class="btn btn-sm btn-info">Ver detalles</a>
+                    <a asp-action="Edit" asp-route-id="@libro.Id" class="btn btn-sm btn-secondary">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@libro.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                    <span class="float-end">
+                        @if (libro.Disponible)
+                        {
+                            <span class="badge bg-success">Disponible</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Prestado</span>
+                        }
+                    </span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
