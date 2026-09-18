@@ -1,27 +1,29 @@
-﻿using BibliotecaMVC.Models;
+﻿using BibliotecaMVC.Data;
+using BibliotecaMVC.Models;
 using BibliotecaMVC.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BibliotecaMVC.Controllers
 {
     public class LibrosController : Controller
     {
-        private readonly IRepositorioLibro repositorio;
+        private readonly BibliotecaContext _context;
 
-        public LibrosController(IRepositorioLibro repositorio)
+        public LibrosController(BibliotecaContext context)
         {
-            this.repositorio = repositorio;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var libros = repositorio.ObtenerTodo();
+            var libros = await _context.Libros.ToListAsync();
             return View(libros);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var libro = repositorio.ObtenerPorId(id);
+            var libro = await _context.Libros.FindAsync(id);
             if (libro == null)
             {
                 return NotFound();
@@ -29,26 +31,27 @@ namespace BibliotecaMVC.Controllers
             return View(libro);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Libro libro)
+        public async Task<IActionResult> Create(Libro libro)
         {
             if (!ModelState.IsValid)
             {
                 return View(libro);
             }
-            repositorio.Agregar(libro);
+            _context.Libros.Add(libro);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var libro = repositorio.ObtenerPorId(id);
+            var libro = await _context.Libros.FindAsync(id);
             if (libro == null)
             {
                 return NotFound();
@@ -58,25 +61,21 @@ namespace BibliotecaMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Libro libro)
+        public async Task<IActionResult> Edit(Libro libro)
         {
             if (!ModelState.IsValid)
             {
                 return View(libro);
             }
 
-            var actualizado = repositorio.Actualizar(libro);
-            if (!actualizado)
-            {
-                return NotFound();
-            }
-
+            _context.Libros.Update(libro);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var libro = repositorio.ObtenerPorId(id);
+            var libro = await _context.Libros.FindAsync(id);
             if (libro == null)
             {
                 return NotFound();
@@ -87,14 +86,17 @@ namespace BibliotecaMVC.Controllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var eliminado = repositorio.Eliminar(id);
-            if (!eliminado)
+            var libro = await _context.Libros.FindAsync(id);
+            if (libro == null)
             {
                 return NotFound();
             }
+            _context.Libros.Remove(libro);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }
 }
+    
