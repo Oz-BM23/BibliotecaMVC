@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using BibliotecaMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BibliotecaMVC.Controllers
 {
@@ -15,6 +16,7 @@ namespace BibliotecaMVC.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login(String? returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
@@ -22,6 +24,7 @@ namespace BibliotecaMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -30,6 +33,7 @@ namespace BibliotecaMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -46,7 +50,7 @@ namespace BibliotecaMVC.Controllers
                     user,
                     model.Password,
                     model.RememberMe,
-                    lockoutOnFailure: false
+                    lockoutOnFailure: true
                 );
                 if (result.Succeeded)
                 {
@@ -59,10 +63,62 @@ namespace BibliotecaMVC.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                 }
+                if (result.IsLockedOut)
+                {
+                    ModelState.AddModelError(string.Empty, "La cuenta ha sido bloqueada por exceso de intentos fallidos. Inténtalo de nuevo dentro de 10 minutos.");
+                    return View(model);
+                }
             }
 
             ModelState.AddModelError(string.Empty, "Las credenciales introducidas son incorrectas.");
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = new IdentityUser
+            {
+                UserName = model.Username,
+                Email = model.Email
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if(result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Usuario");
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return View(model);
+        }   
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

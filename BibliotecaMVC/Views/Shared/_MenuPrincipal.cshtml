@@ -10,21 +10,19 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
                 </li>
-                <li class="nav-item">
+                @if (User.Identity?.IsAuthenticated == true)
+
+                    {
+                    <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Libros" asp-action="Index">Libros</a>
-                </li>
-                <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Autores" asp-action="Index">Autores</a>
-                </li>
-                <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">Categorías</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Usuarios">Usuarios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Préstamos">Préstamos</a>
-                </li>
+                    </li>
+                    }
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">Acerca de</a>
                 </li>
