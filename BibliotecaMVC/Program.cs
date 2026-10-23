@@ -27,6 +27,25 @@ builder.Services.AddSingleton<IAutorService, AutorService>();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var usuarios = await userManager.Users.ToListAsync();
+    foreach (var usuario in usuarios)
+    {
+        if ((await userManager.GetRolesAsync(usuario)).Count == 0)
+        {
+            var result = await userManager.AddToRoleAsync(usuario, "Usuario");
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException(
+                    $"No se pudo asignar el rol Usuario a {usuario.UserName}: {string.Join(", ", result.Errors.Select(error => error.Description))}"
+                );
+            }
+        }
+    }
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

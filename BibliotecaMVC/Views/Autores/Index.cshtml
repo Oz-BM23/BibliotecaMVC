@@ -4,7 +4,10 @@
 <p>Hay @Model.Count() autores registrados</p>
 <hr />
 
-<a asp-action="Create" class="btn btn-primary">Crear nuevo autor</a>
+@if (User.IsInRole("Admin") || User.IsInRole("Bibliotecario"))
+{
+    <a asp-action="Create" class="btn btn-primary">Crear nuevo autor</a>
+}
 <hr />
 
 <div class="row">
@@ -17,9 +20,13 @@
                     <h6>@autor.Nacionalidad</h6>
                     <p>Edad: @(DateTime.Now.Year - autor.FechaNacimiento.Year)</p>
                     <a asp-action="Details" asp-route-id="@autor.Id" class="btn btn-sm btn-info">Ver detalles</a>
-                    <a asp-action="Edit" asp-route-id="@autor.Id" class="btn btn-sm btn-secondary">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@autor.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Bibliotecario"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@autor.Id" class="btn btn-sm btn-secondary">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@autor.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                    }
                 </div>
             </div>
         </div>
     }
+</div>
