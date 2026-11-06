@@ -12,7 +12,7 @@ namespace BibliotecaMVC.Controllers
     {
         private readonly BibliotecaContext _context;
 
-        public AutoresController(BibliotecaContext context)
+        public AutoresController(BibliotecaContext context, ILogger<AutoresController> @object)
         {
             _context = context;
         }
@@ -67,7 +67,7 @@ namespace BibliotecaMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Bibliotecario")]
-        public async Task<IActionResult> Edit(Autor autor)
+        public async Task<IActionResult> Edit(int id, Autor autor)
         {
             if (!ModelState.IsValid)
             {

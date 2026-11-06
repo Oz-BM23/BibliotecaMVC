@@ -1,11 +1,15 @@
 ﻿@{
-    
-    ViewData ["Title"] = "AccessDenied";
-
+    ViewData["Title"] = "Acceso denegado";
 }
 
-<div class="text-center">
-    <h1 class="text-danger">Acceso denegado</h1>
-    <p>No tienes permisos suficientes para acceder a este recurso.</p>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Volver al inicio</a>
+<section class="status-page denied-page text-center">
+    <div class="status-icon" aria-hidden="true">&#128274;</div>
+    <p class="status-code">403</p>
+    <h1 class="display-5 fw-bold">No tienes permiso para entrar aquí</h1>
+    <p class="lead text-muted">Tu cuenta está protegida, pero no dispone de los permisos necesarios para acceder a esta funcionalidad.</p>
+    <div class="d-flex justify-content-center gap-2 flex-wrap">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Volver al inicio</a>
+        <a asp-controller="Libros" asp-action="Index" class="btn btn-outline-primary">Ver catálogo</a>
+    </div>
+</section>
 </div>

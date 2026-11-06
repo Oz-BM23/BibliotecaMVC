@@ -2,6 +2,49 @@ html {
   font-size: 14px;
 }
 
+.status-page {
+    max-width: 760px;
+    margin: 4rem auto;
+    padding: 3.5rem 2rem;
+    border-radius: 1.25rem;
+    background: linear-gradient(145deg, #ffffff, #eef5ff);
+    box-shadow: 0 1rem 2.5rem rgba(37, 140, 251, 0.12);
+}
+
+.status-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    color: #ffffff;
+    background: var(--bs-primary-color);
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.error-page .status-icon {
+    background: var(--bs-danger-color);
+}
+
+.denied-page .status-icon {
+    background: var(--bs-warning-color);
+}
+
+.status-code {
+    margin-bottom: .5rem;
+    color: var(--bs-primary-color);
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .2rem;
+}
+
+.error-page .status-code {
+    color: var(--bs-danger-color);
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
