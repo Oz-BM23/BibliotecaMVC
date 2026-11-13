@@ -7,6 +7,9 @@
 @if (User.IsInRole("Admin") || User.IsInRole("Bibliotecario"))
 {
     <a asp-action="Create" class="btn btn-primary">Crear nuevo libro</a>
+    <a asp-action="ExportarExcel" class="btn btn-success">Exportar a Excel</a>
+    <a asp-action="DescargarReporte" class="btn btn-danger">Descargar Reporte</a>
+    <a asp-action="Reporte" class="btn btn-outline-danger">Ver Reporte</a>
 }
 <hr />
 

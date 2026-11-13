@@ -3,9 +3,12 @@ using BibliotecaMVC.Repositories;
 using BibliotecaMVC.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using QuestPDF.Infrastructure;
+using ClosedXML.Excel;
 
 var builder = WebApplication.CreateBuilder(args);
 
+QuestPDF.Settings.License = LicenseType.Community;
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BibliotecaContext>(options =>
